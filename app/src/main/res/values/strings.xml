@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">EyeInTheSky</string>
+    <string name="new_camera">New Camera</string>
+    <string name="load_camera">Load Camera</string>
+    <string name="new_map">New Map</string>
+    <string name="load_map">Load Map</string>
+    <string name="calibrate">Calibrate</string>
+    <string name="start">START</string>
+    <string name="save">Save</string>
+    <string name="load">Load</string>
+    <string name="end">End</string>
 </resources>
