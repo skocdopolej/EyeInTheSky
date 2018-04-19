@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FlightActivity">
+
+    <Button
+        android:id="@+id/btn_end"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/end"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tx_gps_caption"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/coords"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tx_gps"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/gps"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/tx_gps_caption"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tx_gps_acc"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/accuracy"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/tx_gps"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tx_alt_caption"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/altitude"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tx_gps_caption" />
+
+    <TextView
+        android:id="@+id/tx_alt"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/altitude"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/tx_alt_caption"
+        app:layout_constraintTop_toBottomOf="@+id/tx_gps" />
+
+    <TextView
+        android:id="@+id/tx_vel_caption"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/velocity"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tx_alt_caption" />
+
+    <TextView
+        android:id="@+id/tx_vel"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/velocity"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/tx_vel_caption"
+        app:layout_constraintTop_toBottomOf="@+id/tx_alt" />
+
+    <TextView
+        android:id="@+id/tx_bear_caption"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/bearing"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tx_vel_caption" />
+
+    <TextView
+        android:id="@+id/tx_ppv"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/ppv"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tx_bear"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/bearing"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/tx_bear_caption"
+        app:layout_constraintTop_toBottomOf="@+id/tx_vel" />
+
+    <TextView
+        android:id="@+id/tx_dist"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/distance_to"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tx_ppv" />
+
+    <TextView
+        android:id="@+id/tx_bear_to"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/bearing_to"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tx_dist" />
+
+</android.support.constraint.ConstraintLayout>
