@@ -27,6 +27,7 @@ public class SensorLocation implements LocationListener, Runnable {
             Toast.makeText(context, "Location service is not permitted", Toast.LENGTH_LONG).show();
             return;
         }
+
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this);
     }
 

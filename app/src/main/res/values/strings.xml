@@ -9,4 +9,23 @@
     <string name="save">Save</string>
     <string name="load">Load</string>
     <string name="end">End</string>
+    <string name="gps">GPS</string>
+    <string name="coords">Coords</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="altitude">Altitude</string>
+    <string name="velocity">Velocity</string>
+    <string name="bearing">Bearing</string>
+    <string name="ppv">PPV:</string>
+    <string name="distance_to">Distance TO</string>
+    <string name="bearing_to">Bearing To</string>
+    <string name="title_activity_map_settings_new">Map</string>
+    <string name="select_area">Select Area</string>
+    <string name="point_a">Point A</string>
+    <string name="point_b">Point B</string>
+    <string name="point_c">Point C</string>
+    <string name="clear">Clear</string>
+    <string name="ok">OK</string>
+    <string name="yaw">Yaw</string>
+    <string name="roll">Roll</string>
+    <string name="pitch">Pitch</string>
 </resources>

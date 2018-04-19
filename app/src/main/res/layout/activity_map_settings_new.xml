@@ -15,7 +15,127 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_select_area"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/select_area"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txb_point_a"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/point_a"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/num_point_a_latitude"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/point_a"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/txb_point_a"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/num_point_a_longitude"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/point_a"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/num_point_a_latitude"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txb_point_b"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/point_b"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txb_point_a" />
+
+    <EditText
+        android:id="@+id/num_point_b_latitude"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/point_b"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/txb_point_b"
+        app:layout_constraintTop_toBottomOf="@+id/num_point_a_latitude" />
+
+    <EditText
+        android:id="@+id/num_point_b_longitude"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/point_b"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/num_point_b_latitude"
+        app:layout_constraintTop_toBottomOf="@+id/num_point_a_longitude" />
+
+    <TextView
+        android:id="@+id/txb_point_c"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/point_c"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txb_point_b" />
+
+    <EditText
+        android:id="@+id/num_point_c_latitude"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/point_c"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/txb_point_c"
+        app:layout_constraintTop_toBottomOf="@+id/num_point_b_latitude" />
+
+    <EditText
+        android:id="@+id/num_point_c_longitude"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/point_c"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/num_point_c_latitude"
+        app:layout_constraintTop_toBottomOf="@+id/num_point_b_longitude" />
 
 </android.support.constraint.ConstraintLayout>

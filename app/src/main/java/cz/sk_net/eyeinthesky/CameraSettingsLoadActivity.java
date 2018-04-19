@@ -11,7 +11,7 @@ public class CameraSettingsLoadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_load_camera_settings);
+        setContentView(R.layout.activity_camera_load_settings);
 
         Button btn_save = findViewById(R.id.btn_save);
 

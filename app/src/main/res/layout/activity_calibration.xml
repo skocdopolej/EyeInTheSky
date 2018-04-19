@@ -7,15 +7,104 @@
     tools:context=".CalibrationActivity">
 
     <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/ok"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/btn_calibrate"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginBottom="64dp"
+        android:layout_marginStart="32dp"
         android:text="@string/calibrate"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_ok" />
+
+    <TextView
+        android:id="@+id/txv_x_axis"
+        android:layout_width="256dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/yaw"
+        android:textAlignment="viewStart"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txv_y_axis"
+        android:layout_width="256dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/roll"
+        android:textAlignment="viewStart"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_x_axis" />
+
+    <TextView
+        android:id="@+id/txv_z_axis"
+        android:layout_width="256dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/pitch"
+        android:textAlignment="viewStart"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_y_axis" />
+
+    <EditText
+        android:id="@+id/txb_yaw"
+        android:layout_width="256dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/yaw"
+        android:inputType="number"
+        android:textSize="36sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_x_axis"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txb_roll"
+        android:layout_width="256dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/roll"
+        android:inputType="number"
+        android:textSize="36sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_y_axis"
+        app:layout_constraintTop_toBottomOf="@+id/txb_yaw" />
+
+    <EditText
+        android:id="@+id/txb_pitch"
+        android:layout_width="256dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/pitch"
+        android:inputType="number"
+        android:textSize="36sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_z_axis"
+        app:layout_constraintTop_toBottomOf="@+id/txb_roll" />
 
 </android.support.constraint.ConstraintLayout>
