@@ -89,6 +89,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tx_alt_caption" />
 
     <TextView
+        android:id="@+id/tx_vel_kph"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="128dp"
+        android:text="@string/velocity"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/tx_vel"
+        app:layout_constraintTop_toBottomOf="@+id/tx_gps_acc" />
+
+    <TextView
         android:id="@+id/tx_vel"
         android:layout_width="256dp"
         android:layout_height="64dp"
@@ -112,12 +123,12 @@
         app:layout_constraintTop_toBottomOf="@+id/tx_vel_caption" />
 
     <TextView
-        android:id="@+id/tx_ppv"
+        android:id="@+id/tx_wp"
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginBottom="64dp"
         android:layout_marginStart="32dp"
-        android:text="@string/ppv"
+        android:text="@string/WP"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="italic"
@@ -146,7 +157,7 @@
         android:textSize="24sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tx_ppv" />
+        app:layout_constraintStart_toEndOf="@+id/tx_wp" />
 
     <TextView
         android:id="@+id/tx_bear_to"

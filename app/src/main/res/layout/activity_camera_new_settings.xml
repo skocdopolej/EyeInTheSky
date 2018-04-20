@@ -19,149 +19,149 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txv_name"
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Lens"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="128dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:text="Shutter"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="128dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:text="Resolution"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="128dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:text="Chip size"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="128dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:text="Camera"
+        android:text="@string/name"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/txb_camera_name"
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Horizontal"
-        android:inputType="textPersonName"
+        android:hint="@string/name"
+        android:inputType="text"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+        app:layout_constraintStart_toEndOf="@+id/txv_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txv_camera_resolution"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/resolution"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_name" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/txb_camera_resolution_horizontal"
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Focal len."
-        android:inputType="textPersonName"
+        android:hint="@string/horizontal"
+        android:inputType="number"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintStart_toEndOf="@+id/txv_camera_resolution"
+        app:layout_constraintTop_toBottomOf="@+id/txb_camera_name" />
 
     <EditText
-        android:id="@+id/editText3"
-        android:layout_width="128dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="URL"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
-
-    <EditText
-        android:id="@+id/editText8"
-        android:layout_width="128dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Vertical"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText7" />
-
-    <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/txb_camera_resolution_vertical"
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="96dp"
         android:ems="10"
-        android:hint="Vertical"
-        android:inputType="textPersonName"
+        android:hint="@string/vertical"
+        android:inputType="number"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/editText6"
+        app:layout_constraintStart_toEndOf="@+id/txb_camera_resolution_horizontal"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txv_chip_size"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/chip_size"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_camera_resolution" />
+
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/txb_chip_size_horizontal"
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Horizontal"
-        android:inputType="textPersonName"
+        android:hint="@string/horizontal"
+        android:inputType="numberDecimal"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintStart_toEndOf="@+id/txv_chip_size"
+        app:layout_constraintTop_toBottomOf="@+id/txb_camera_resolution_horizontal" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/txb_chip_size_vertical"
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
+        android:hint="@string/vertical"
+        android:inputType="numberDecimal"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/txb_chip_size_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/txb_camera_resolution_vertical" />
+
+    <TextView
+        android:id="@+id/txv_camera_focal_length"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/lens"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_chip_size" />
+
+    <EditText
+        android:id="@+id/txb_camera_focal_length"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/focal_len"
+        android:inputType="numberDecimal"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_camera_focal_length"
+        app:layout_constraintTop_toBottomOf="@+id/txb_chip_size_horizontal" />
+
+    <TextView
+        android:id="@+id/txv_camera_shutter"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/shutter"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_camera_focal_length" />
+
+    <EditText
+        android:id="@+id/txb_camera_shutter"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/url"
+        android:inputType="textUri"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_camera_shutter"
+        app:layout_constraintTop_toBottomOf="@+id/txb_camera_focal_length" />
 
 </android.support.constraint.ConstraintLayout>
