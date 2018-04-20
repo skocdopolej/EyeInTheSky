@@ -15,7 +15,7 @@
     <string name="altitude">Altitude</string>
     <string name="velocity">Velocity</string>
     <string name="bearing">Bearing</string>
-    <string name="ppv">PPV:</string>
+    <string name="WP">WP:</string>
     <string name="distance_to">Distance TO</string>
     <string name="bearing_to">Bearing To</string>
     <string name="title_activity_map_settings_new">Map</string>
@@ -28,4 +28,13 @@
     <string name="yaw">Yaw</string>
     <string name="roll">Roll</string>
     <string name="pitch">Pitch</string>
+    <string name="name">Name</string>
+    <string name="resolution">Resolution</string>
+    <string name="horizontal">Horizontal</string>
+    <string name="vertical">Vertical</string>
+    <string name="chip_size">Chip size</string>
+    <string name="lens">Lens</string>
+    <string name="focal_len">Focal len.</string>
+    <string name="shutter">Shutter</string>
+    <string name="url">URL</string>
 </resources>
