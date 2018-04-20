@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    // Intent request codes
     public static final int REQ_CODE_CAMERA_LOAD = 1120;
     public static final int REQ_CODE_CAMERA_NEW = 1140;
     public static final int REQ_CODE_MAP_LOAD = 1220;
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int REQ_CODE_CALIBRATE = 1320;
     public static final int REQ_CODE_START = 1420;
 
+    // Camera
+    Camera camera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
 
-        // Buttons layout
+        // Assign buttons
         Button btn_camera_load = findViewById(R.id.btn_camera_load);
         Button btn_camera_new = findViewById(R.id.btn_camera_new);
         Button btn_map_load = findViewById(R.id.btn_map_load);
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btn_calibrate = findViewById(R.id.btn_ok);
         Button btn_start = findViewById(R.id.btn_start);
 
-        // Set assign listener to buttons
+        // Set buttons listener
         btn_camera_load.setOnClickListener(this);
         btn_camera_new.setOnClickListener(this);
         btn_map_load.setOnClickListener(this);
@@ -94,22 +98,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (requestCode) {
 
             case REQ_CODE_CAMERA_LOAD:
-                if (resultCode == 1) {
+                // TODO
+                break;
 
-                    // TODO
-                } else if (resultCode == 2) {
+            case REQ_CODE_CAMERA_NEW:
+                if ((resultCode != RESULT_CANCELED) && (resultCode == 1)) {
 
-                    // TODO
+                    camera = (Camera) data.getSerializableExtra("camera");
+
+                    Toast.makeText(this, camera.print(), Toast.LENGTH_LONG).show();
                 }
 
                 if (resultCode == RESULT_CANCELED) {
 
                     // TODO
                 }
-                break;
-
-            case REQ_CODE_CAMERA_NEW:
-                // TODO
                 break;
 
             case REQ_CODE_MAP_LOAD:
@@ -125,7 +128,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case REQ_CODE_START:
-                // TODO
+                if (resultCode == 1) {
+
+                    // TODO
+                } else if (resultCode == 2) {
+
+                    // TODO
+                }
+
+                if (resultCode == RESULT_CANCELED) {
+
+                    // TODO
+                }
                 break;
         }
     }
