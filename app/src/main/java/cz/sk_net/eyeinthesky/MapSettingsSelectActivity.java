@@ -2,36 +2,26 @@ package cz.sk_net.eyeinthesky;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Location;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class MapSettingsSelectActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private GoogleMap mMap;
     private int markerCounter = 0;
-    private ArrayList<Location> arrLocation = new ArrayList<>();
+    private ArrayList<LatLng> arrLocation = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +41,7 @@ public class MapSettingsSelectActivity extends FragmentActivity implements OnMap
         LatLng Zhor = new LatLng(49.44120, 15.76772);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Zhor));
 
-        Button btn_ok = findViewById(R.id.btn_ok);
+        Button btn_ok = findViewById(R.id.btn_calibrate);
         Button btn_clear = findViewById(R.id.btn_clear);
 
         btn_ok.setOnClickListener(this);
@@ -63,25 +53,12 @@ public class MapSettingsSelectActivity extends FragmentActivity implements OnMap
 
                 if (markerCounter < 3) {
 
-
-                    arrLocation.add(new Location("GoogleMaps"));
-                    arrLocation.get(markerCounter).setLatitude(latLng.latitude);
-                    arrLocation.get(markerCounter).setLongitude(latLng.longitude);
+                    arrLocation.add(new LatLng(latLng.latitude, latLng.longitude));
 
                     mMap.addMarker(new MarkerOptions().position(latLng).title("onMapClick()"));
                     //mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
                     markerCounter++;
-                } else {
-                    Log.d("LOC: ", arrLocation.get(0).getLatitude() + "; " + arrLocation.get(1).getLongitude());
-                    Log.d("LOC: ", arrLocation.get(1).getLatitude() + "; " + arrLocation.get(1).getLongitude());
-                    Log.d("LOC: ", arrLocation.get(2).getLatitude() + "; " + arrLocation.get(2).getLongitude());
-                    mMap.addPolygon(new PolygonOptions()
-                            .add(new LatLng(arrLocation.get(0).getLatitude(), arrLocation.get(0).getLongitude()),
-                                    new LatLng(arrLocation.get(1).getLatitude(), arrLocation.get(1).getLongitude()),
-                                    new LatLng(arrLocation.get(2).getLatitude(), arrLocation.get(2).getLongitude()))
-                            .strokeColor(Color.RED)
-                            .fillColor(Color.BLUE));
                 }
             }
         });
@@ -92,9 +69,24 @@ public class MapSettingsSelectActivity extends FragmentActivity implements OnMap
 
         switch (v.getId()) {
 
-            case R.id.btn_ok:
+            case R.id.btn_calibrate:
+                Area area = new Area(
+                        arrLocation.get(0).latitude, arrLocation.get(1).latitude, arrLocation.get(2).latitude,
+                        arrLocation.get(0).longitude, arrLocation.get(1).longitude, arrLocation.get(2).longitude
+                );
+
+                area.computeArea();
+
+                mMap.addPolygon(new PolygonOptions()
+                        .add(new LatLng(area.getXa(), area.getYa()),
+                                new LatLng(area.getXb(), area.getYb()),
+                                new LatLng(area.getXaa(), area.getYaa()),
+                                new LatLng(area.getXbb(), area.getXbb()))
+                        .strokeColor(Color.RED)
+                        .fillColor(Color.BLUE));
+
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("result", 0);
+                resultIntent.putExtra("area", area);
                 setResult(1, resultIntent);
                 finish();
                 break;
@@ -102,7 +94,7 @@ public class MapSettingsSelectActivity extends FragmentActivity implements OnMap
             case R.id.btn_clear:
                 mMap.clear();
                 markerCounter = 0;
-                arrLocation.clone();
+                arrLocation.clear();
                 break;
         }
     }

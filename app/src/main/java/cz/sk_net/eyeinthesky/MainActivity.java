@@ -12,12 +12,11 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     // Intent request codes
-    public static final int REQ_CODE_CAMERA_LOAD = 1120;
-    public static final int REQ_CODE_CAMERA_NEW = 1140;
-    public static final int REQ_CODE_MAP_LOAD = 1220;
-    public static final int REQ_CODE_MAP_NEW = 1240;
-    public static final int REQ_CODE_CALIBRATE = 1320;
-    public static final int REQ_CODE_START = 1420;
+    public static final int REQ_CODE_CAMERA = 10;
+    public static final int REQ_CODE_AREA = 20;
+    public static final int REQ_CODE_CALIBRATION = 30;
+    public static final int REQ_CODE_FLIGHT = 40;
+    public static final int REQ_CODE_START = 50;
 
     // Camera
     Camera camera;
@@ -35,11 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // Assign buttons
-        Button btn_camera_load = findViewById(R.id.btn_camera_load);
-        Button btn_camera_new = findViewById(R.id.btn_camera_new);
-        Button btn_map_load = findViewById(R.id.btn_map_load);
-        Button btn_map_new = findViewById(R.id.btn_map_new);
-        Button btn_calibrate = findViewById(R.id.btn_ok);
+        Button btn_camera_load = findViewById(R.id.btn_camera);
+        Button btn_camera_new = findViewById(R.id.btn_camera);
+        Button btn_map_load = findViewById(R.id.btn_area);
+        Button btn_map_new = findViewById(R.id.btn_area);
+        Button btn_calibrate = findViewById(R.id.btn_calibrate);
         Button btn_start = findViewById(R.id.btn_start);
 
         // Set buttons listener
@@ -58,29 +57,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
 
-            case R.id.btn_camera_load:
-                intent = new Intent(MainActivity.this, CameraSettingsLoadActivity.class);
-                startActivityForResult(intent, REQ_CODE_CAMERA_LOAD);
-                break;
-
-            case R.id.btn_camera_new:
+            case R.id.btn_camera:
                 intent = new Intent(MainActivity.this, CameraSettingsNewActivity.class);
-                startActivityForResult(intent, REQ_CODE_CAMERA_NEW);
+                startActivityForResult(intent, REQ_CODE_CAMERA);
                 break;
 
-            case R.id.btn_map_load:
-                intent = new Intent(MainActivity.this, MapSettingsLoadActivity.class);
-                startActivityForResult(intent, REQ_CODE_MAP_LOAD);
-                break;
-
-            case R.id.btn_map_new:
+            case R.id.btn_area:
                 intent = new Intent(MainActivity.this, MapSettingsNewActivity.class);
-                startActivityForResult(intent, REQ_CODE_MAP_NEW);
+                startActivityForResult(intent, REQ_CODE_AREA);
                 break;
 
-            case R.id.btn_ok:
+            case R.id.btn_calibrate:
                 intent = new Intent(MainActivity.this, CalibrationActivity.class);
-                startActivityForResult(intent, REQ_CODE_CALIBRATE);
+                startActivityForResult(intent, REQ_CODE_CALIBRATION);
                 break;
 
             case R.id.btn_start:
@@ -97,11 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (requestCode) {
 
-            case REQ_CODE_CAMERA_LOAD:
-                // TODO
-                break;
-
-            case REQ_CODE_CAMERA_NEW:
+            case REQ_CODE_CAMERA:
                 if ((resultCode != RESULT_CANCELED) && (resultCode == 1)) {
 
                     camera = (Camera) data.getSerializableExtra("camera");
@@ -115,15 +100,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
-            case REQ_CODE_MAP_LOAD:
+            case REQ_CODE_AREA:
                 // TODO
                 break;
 
-            case REQ_CODE_MAP_NEW:
+            case REQ_CODE_FLIGHT:
                 // TODO
                 break;
 
-            case REQ_CODE_CALIBRATE:
+            case REQ_CODE_CALIBRATION:
                 // TODO
                 break;
 

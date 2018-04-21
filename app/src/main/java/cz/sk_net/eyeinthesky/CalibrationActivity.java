@@ -79,7 +79,7 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
         yAxis = findViewById(R.id.txv_y_axis);
         zAxis = findViewById(R.id.txv_z_axis);
 
-        Button btn_ok = findViewById(R.id.btn_ok);
+        Button btn_ok = findViewById(R.id.btn_calibrate);
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override

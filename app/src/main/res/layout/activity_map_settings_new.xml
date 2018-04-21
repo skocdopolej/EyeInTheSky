@@ -19,6 +19,17 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/btn_compute"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/compute"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/btn_select_area"
         android:layout_width="256dp"
         android:layout_height="64dp"
@@ -43,7 +54,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/num_point_a_latitude"
+        android:id="@+id/num_point_a_lat"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
@@ -55,7 +66,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/num_point_a_longitude"
+        android:id="@+id/num_point_a_lng"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
@@ -63,7 +74,7 @@
         android:ems="10"
         android:hint="@string/point_a"
         android:inputType="numberDecimal"
-        app:layout_constraintStart_toEndOf="@+id/num_point_a_latitude"
+        app:layout_constraintStart_toEndOf="@+id/num_point_a_lat"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -79,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txb_point_a" />
 
     <EditText
-        android:id="@+id/num_point_b_latitude"
+        android:id="@+id/num_point_b_lat"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
@@ -88,10 +99,10 @@
         android:hint="@string/point_b"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/txb_point_b"
-        app:layout_constraintTop_toBottomOf="@+id/num_point_a_latitude" />
+        app:layout_constraintTop_toBottomOf="@+id/num_point_a_lat" />
 
     <EditText
-        android:id="@+id/num_point_b_longitude"
+        android:id="@+id/num_point_b_lng"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
@@ -99,8 +110,8 @@
         android:ems="10"
         android:hint="@string/point_b"
         android:inputType="numberDecimal"
-        app:layout_constraintStart_toEndOf="@+id/num_point_b_latitude"
-        app:layout_constraintTop_toBottomOf="@+id/num_point_a_longitude" />
+        app:layout_constraintStart_toEndOf="@+id/num_point_b_lat"
+        app:layout_constraintTop_toBottomOf="@+id/num_point_a_lng" />
 
     <TextView
         android:id="@+id/txb_point_c"
@@ -115,7 +126,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txb_point_b" />
 
     <EditText
-        android:id="@+id/num_point_c_latitude"
+        android:id="@+id/num_point_c_lat"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
@@ -124,10 +135,10 @@
         android:hint="@string/point_c"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/txb_point_c"
-        app:layout_constraintTop_toBottomOf="@+id/num_point_b_latitude" />
+        app:layout_constraintTop_toBottomOf="@+id/num_point_b_lat" />
 
     <EditText
-        android:id="@+id/num_point_c_longitude"
+        android:id="@+id/num_point_c_lng"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
@@ -135,7 +146,75 @@
         android:ems="10"
         android:hint="@string/point_c"
         android:inputType="numberDecimal"
-        app:layout_constraintStart_toEndOf="@+id/num_point_c_latitude"
-        app:layout_constraintTop_toBottomOf="@+id/num_point_b_longitude" />
+        app:layout_constraintStart_toEndOf="@+id/num_point_c_lat"
+        app:layout_constraintTop_toBottomOf="@+id/num_point_b_lng" />
+
+    <TextView
+        android:id="@+id/txb_point_aa"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/point_a_com"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txb_point_c" />
+
+    <TextView
+        android:id="@+id/txb_point_aa_lat"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/point_a_com"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txb_point_aa"
+        app:layout_constraintTop_toBottomOf="@+id/num_point_c_lat" />
+
+    <TextView
+        android:id="@+id/txb_point_aa_lng"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/point_a_com"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txb_point_aa_lat"
+        app:layout_constraintTop_toBottomOf="@+id/num_point_c_lng" />
+
+    <TextView
+        android:id="@+id/txb_point_bb"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/point_b_com"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txb_point_aa" />
+
+    <TextView
+        android:id="@+id/txb_point_bb_lat"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/point_b_com"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txb_point_bb"
+        app:layout_constraintTop_toBottomOf="@+id/txb_point_aa_lat" />
+
+    <TextView
+        android:id="@+id/txb_point_bb_lng"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/point_b_com"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txb_point_bb_lat"
+        app:layout_constraintTop_toBottomOf="@+id/txb_point_aa_lng" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">EyeInTheSky</string>
-    <string name="new_camera">New Camera</string>
-    <string name="load_camera">Load Camera</string>
-    <string name="new_map">New Map</string>
-    <string name="load_map">Load Map</string>
-    <string name="calibrate">Calibrate</string>
     <string name="start">START</string>
     <string name="save">Save</string>
     <string name="load">Load</string>
@@ -37,4 +32,12 @@
     <string name="focal_len">Focal len.</string>
     <string name="shutter">Shutter</string>
     <string name="url">URL</string>
+    <string name="point_a_com">Point A\'</string>
+    <string name="point_b_com">Point B\'</string>
+    <string name="compute">Compute</string>
+    <string name="camera">Camera</string>
+    <string name="area">Area</string>
+    <string name="flight">Flight</string>
+    <string name="calibration">Calibration</string>
+    <string name="calibrate">Calibrate</string>
 </resources>

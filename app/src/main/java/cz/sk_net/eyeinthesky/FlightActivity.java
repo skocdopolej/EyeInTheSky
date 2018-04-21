@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class FlightActivity extends AppCompatActivity implements LocationListener {
 
-    ArrayList<Location> arrLocation = new ArrayList<>();
-    int wpCtr = 0;
+    ArrayList<WayPoint> arrLocation = new ArrayList<>();
+    //int wpCtr = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,43 +55,19 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
             return;
         }
 
-        arrLocation.add(new Location("GoogleMaps"));
-        arrLocation.get(arrLocation.size() - 1).setLatitude(49.441776);
-        arrLocation.get(arrLocation.size() - 1).setLongitude(15.768025);
-
-        arrLocation.add(new Location("GoogleMaps"));
-        arrLocation.get(arrLocation.size() - 1).setLatitude(49.443405);
-        arrLocation.get(arrLocation.size() - 1).setLongitude(15.762090);
-
-        arrLocation.add(new Location("GoogleMaps"));
-        arrLocation.get(arrLocation.size() - 1).setLatitude(49.445326);
-        arrLocation.get(arrLocation.size() - 1).setLongitude(15.770455);
-
-        arrLocation.add(new Location("GoogleMaps"));
-        arrLocation.get(arrLocation.size() - 1).setLatitude(49.446250);
-        arrLocation.get(arrLocation.size() - 1).setLongitude(15.775212);
-
-        arrLocation.add(new Location("GoogleMaps"));
-        arrLocation.get(arrLocation.size() - 1).setLatitude(49.447984);
-        arrLocation.get(arrLocation.size() - 1).setLongitude(15.777248);
-
-        arrLocation.add(new Location("GoogleMaps"));
-        arrLocation.get(arrLocation.size() - 1).setLatitude(49.446521);
-        arrLocation.get(arrLocation.size() - 1).setLongitude(15.778494);
-
-        arrLocation.add(new Location("GoogleMaps"));
-        arrLocation.get(arrLocation.size() - 1).setLatitude(49.446385);
-        arrLocation.get(arrLocation.size() - 1).setLongitude(15.778215);
+        arrLocation.add(new WayPoint(49.441776, 15.768025));
+        arrLocation.add(new WayPoint(49.443405, 15.762090));
+        arrLocation.add(new WayPoint(49.445326, 15.770455));
+        arrLocation.add(new WayPoint(49.446250, 15.775212));
+        arrLocation.add(new WayPoint(49.447984, 15.777248));
+        arrLocation.add(new WayPoint(49.446521, 15.778494));
+        arrLocation.add(new WayPoint(49.446385, 15.778215));
 
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this);
     }
 
     @Override
     public void onLocationChanged(Location location) {
-
-        //Location locPPV = new Location("hardcoded");
-        //locPPV.setLatitude(49.2324722);
-        //locPPV.setLongitude(16.5701389);
 
         TextView tx_gps = findViewById(R.id.tx_gps);
         TextView tx_gps_acc = findViewById(R.id.tx_gps_acc);
@@ -116,14 +92,22 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
         tx_vel.setText(location.getSpeed() + " m/s");
         tx_vel_kph.setText((location.getSpeed() * 3.6) + " km/h");
         tx_bear.setText(bearing + "°");
-        tx_wp.setText("WP " + wpCtr + ":");
-        tx_dist.setText(location.distanceTo(arrLocation.get(wpCtr)) + " m");
-        tx_bear_to.setText(location.bearingTo(arrLocation.get(wpCtr)) + "°");
+        //tx_wp.setText("WP " + wpCtr + ":");
+        //tx_dist.setText(location.distanceTo(arrLocation.get(wpCtr).getLocation()) + " m");
+        //tx_bear_to.setText(location.bearingTo(arrLocation.get(wpCtr).getLocation()) + "°");
 
-        if ((wpCtr < arrLocation.size()) && (location.distanceTo(arrLocation.get(wpCtr)) < 10)) {
+        for (int i = 0; i < arrLocation.size(); i++) {
 
-            Toast.makeText(this, "You've reached position: " + wpCtr, Toast.LENGTH_SHORT).show();
-            wpCtr++;
+            if (!arrLocation.get(i).isPhotoTaken()) {
+
+                if (location.distanceTo(arrLocation.get(i).getLocation()) < 10) {
+
+                    Toast.makeText(this, "You've reached position", Toast.LENGTH_SHORT).show();
+                    arrLocation.get(i).setPhotoTaken(true);
+                    //wpCtr++;
+                    tx_wp.append(i + "");
+                }
+            }
         }
     }
 
