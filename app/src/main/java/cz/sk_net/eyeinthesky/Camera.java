@@ -2,7 +2,7 @@ package cz.sk_net.eyeinthesky;
 
 import java.io.Serializable;
 
-public class Camera implements Serializable{
+public class Camera implements Serializable {
 
     private String name;
     private int resolutionX;
@@ -10,75 +10,29 @@ public class Camera implements Serializable{
     private float chipSizeX;
     private float chipSizeY;
     private float focalLength;
-    private String shutter;
+    private String shutterURL;
 
-    public Camera(String name, int resolutionX, int resolutionY, float chipSizeX, float chipSizeY, float focalLength, String shutter) {
+    Camera(String name, int resolutionX, int resolutionY, float chipSizeX, float chipSizeY, float focalLength, String shutterURL) {
         this.name = name;
         this.resolutionX = resolutionX;
         this.resolutionY = resolutionY;
         this.chipSizeX = chipSizeX;
         this.chipSizeY = chipSizeY;
         this.focalLength = focalLength;
-        this.shutter = shutter;
+        this.shutterURL = shutterURL;
     }
 
-    public String getName() {
-        return name;
-    }
+    public float getFov(float a) {
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getResolutionX() {
-        return resolutionX;
-    }
-
-    public void setResolutionX(int resolutionX) {
-        this.resolutionX = resolutionX;
-    }
-
-    public int getResolutionY() {
-        return resolutionY;
-    }
-
-    public void setResolutionY(int resolutionY) {
-        this.resolutionY = resolutionY;
-    }
-
-    public float getChipSizeX() {
-        return chipSizeX;
-    }
-
-    public void setChipSizeX(float chipSizeX) {
-        this.chipSizeX = chipSizeX;
-    }
-
-    public float getChipSizeY() {
-        return chipSizeY;
-    }
-
-    public void setChipSizeY(float chipSizeY) {
-        this.chipSizeY = chipSizeY;
-    }
-
-    public float getFocalLength() {
-        return focalLength;
-    }
-
-    public void setFocalLength(float focalLength) {
-        this.focalLength = focalLength;
-    }
-
-    public String getShutter() {
-        return shutter;
-    }
-
-    public void setShutter(String shutter) {
-        this.shutter = shutter;
+        return (float) Math.toDegrees((2 * Math.atan(a / 2 * focalLength)));
     }
 
     public String print() {
-        return ("Camera name: " + name + "\nResolution: " + resolutionX + "×" + resolutionY + "\nChip size: " + chipSizeX + "×" + chipSizeY + "\nLens" + focalLength + " mm\nShutter URL: " + shutter);
+        return (name + ";" + resolutionX + ";" + resolutionY + ";" + chipSizeX + ";" + chipSizeY + ";" + focalLength + ";" + shutterURL + "\n");
+    }
+
+    public void takePhoto() {
+
+        new HttpClient().execute(shutterURL);
     }
 }

@@ -8,6 +8,7 @@ import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +21,6 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
     private TextView yAxis;
     private TextView zAxis;
 
-    // Sensors (ACCELEROMETER + GEOMAG)
-    private SensorManager SM;
-    private Sensor myAcc;
-    private Sensor myGeo;
-
-
     float[] m_lastAccel = new float[3];
     float[] m_lastMagFields = new float[3];
     private float[] m_rotationMatrix = new float[16];
@@ -37,11 +32,18 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calibration);
+
+        // Hide system top tray.
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Hide keyboard at the activity start.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        setContentView(R.layout.activity_calibration);
 
         final EditText txb_yaw = findViewById(R.id.txb_yaw);
         final EditText txb_roll = findViewById(R.id.txb_roll);
@@ -63,12 +65,12 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
         });
 
         // Manager
-        SM = (SensorManager)getSystemService(SENSOR_SERVICE);
+        SensorManager SM = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         // Sensor
         assert SM != null;
-        myAcc = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        myGeo = SM.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        Sensor myAcc = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Sensor myGeo = SM.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
         // Register
         SM.registerListener(this, myAcc, SensorManager.SENSOR_DELAY_NORMAL);
@@ -79,7 +81,7 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
         yAxis = findViewById(R.id.txv_y_axis);
         zAxis = findViewById(R.id.txv_z_axis);
 
-        Button btn_ok = findViewById(R.id.btn_calibrate);
+        Button btn_ok = findViewById(R.id.btn_ok);
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override

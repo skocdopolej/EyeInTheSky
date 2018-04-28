@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CameraSettingsNewActivity">
+    tools:context=".CameraSettingsActivity">
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/save"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
 
     <EditText
         android:id="@+id/txb_camera_name"
-        android:layout_width="128dp"
+        android:layout_width="272dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -71,13 +71,13 @@
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/vertical"
         android:inputType="number"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/txb_camera_resolution_horizontal"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txb_camera_name" />
 
     <TextView
         android:id="@+id/txv_chip_size"
@@ -153,7 +153,7 @@
 
     <EditText
         android:id="@+id/txb_camera_shutter"
-        android:layout_width="128dp"
+        android:layout_width="272dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"

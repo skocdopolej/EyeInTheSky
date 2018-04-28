@@ -10,7 +10,7 @@
         android:id="@+id/btn_end"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/end"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/tx_gps"
-        android:layout_width="256dp"
+        android:layout_width="192dp"
         android:layout_height="64dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
@@ -42,21 +42,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tx_gps_acc"
-        android:layout_width="256dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/accuracy"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/tx_gps"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/tx_alt_caption"
         android:layout_width="128dp"
-        android:layout_height="64dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/altitude"
@@ -67,8 +55,8 @@
 
     <TextView
         android:id="@+id/tx_alt"
-        android:layout_width="256dp"
-        android:layout_height="64dp"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/altitude"
@@ -79,7 +67,7 @@
     <TextView
         android:id="@+id/tx_vel_caption"
         android:layout_width="128dp"
-        android:layout_height="64dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/velocity"
@@ -89,20 +77,9 @@
         app:layout_constraintTop_toBottomOf="@+id/tx_alt_caption" />
 
     <TextView
-        android:id="@+id/tx_vel_kph"
-        android:layout_width="256dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
-        android:text="@string/velocity"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/tx_vel"
-        app:layout_constraintTop_toBottomOf="@+id/tx_gps_acc" />
-
-    <TextView
         android:id="@+id/tx_vel"
-        android:layout_width="256dp"
-        android:layout_height="64dp"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/velocity"
@@ -113,7 +90,7 @@
     <TextView
         android:id="@+id/tx_bear_caption"
         android:layout_width="128dp"
-        android:layout_height="64dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/bearing"
@@ -126,7 +103,7 @@
         android:id="@+id/tx_wp"
         android:layout_width="128dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="32dp"
         android:text="@string/WP"
         android:textColor="@android:color/black"
@@ -137,8 +114,8 @@
 
     <TextView
         android:id="@+id/tx_bear"
-        android:layout_width="256dp"
-        android:layout_height="64dp"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/bearing"
@@ -150,7 +127,7 @@
         android:id="@+id/tx_dist"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="32dp"
         android:text="@string/distance_to"
         android:textColor="@android:color/holo_green_dark"
@@ -163,7 +140,7 @@
         android:id="@+id/tx_bear_to"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="32dp"
         android:text="@string/bearing_to"
         android:textColor="@android:color/holo_green_dark"
@@ -171,5 +148,50 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tx_dist" />
+
+    <TableLayout
+        android:id="@+id/tbl_grid"
+        android:layout_width="512dp"
+        android:layout_height="512dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_prev"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/prev"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tx_bear_caption" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/next"
+        android:textAlignment="textStart"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_wp"
+        app:layout_constraintTop_toBottomOf="@+id/tx_bear"
+        tools:text=">>" />
+
+    <TextView
+        android:id="@+id/txv_wp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/wp"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/btn_prev"
+        app:layout_constraintTop_toBottomOf="@+id/tx_bear_caption" />
 
 </android.support.constraint.ConstraintLayout>

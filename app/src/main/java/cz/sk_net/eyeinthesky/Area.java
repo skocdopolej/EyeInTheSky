@@ -4,101 +4,111 @@ import java.io.Serializable;
 
 public class Area implements Serializable {
 
-    private double xa;
-    private double xb;
-    private double xc;
-    private double xaa;
-    private double xbb;
-    private double ya;
-    private double yb;
-    private double yc;
-    private double yaa;
-    private double ybb;
+    private static final double eartRad = 6378137.0;
 
-    public Area(double xa, double xb, double xc, double ya, double yb, double yc) {
-        this.xa = xa;
-        this.xb = xb;
-        this.xc = xc;
-        this.ya = ya;
-        this.yb = yb;
-        this.yc = yc;
+    private double latA;
+    private double latB;
+    private double latC;
+    private double latAA;
+    private double latBB;
+    private double lngA;
+    private double lngB;
+    private double lngC;
+    private double lngAA;
+    private double lngBB;
+
+    Area(double latA, double latB, double latC, double lngA, double lngB, double lngC) {
+        this.latA = latA;
+        this.latB = latB;
+        this.latC = latC;
+        this.lngA = lngA;
+        this.lngB = lngB;
+        this.lngC = lngC;
     }
 
-    public double getXa() {
-        return xa;
+    public double getLatA() {
+        return latA;
     }
 
-    public double getXb() {
-        return xb;
+    public double getLatB() {
+        return latB;
     }
 
-    public double getXc() {
-        return xc;
+    public double getLatC() {
+        return latC;
     }
 
-    public double getXaa() {
-        return xaa;
+    public double getLatAA() {
+        return latAA;
     }
 
-    public double getXbb() {
-        return xbb;
+    public double getLatBB() {
+        return latBB;
     }
 
-    public double getYa() {
-        return ya;
+    public double getLngA() {
+        return lngA;
     }
 
-    public double getYb() {
-        return yb;
+    public double getLngB() {
+        return lngB;
     }
 
-    public double getYc() {
-        return yc;
+    public double getLngC() {
+        return lngC;
     }
 
-    public double getYaa() {
-        return yaa;
+    public double getLngAA() {
+        return lngAA;
     }
 
-    public double getYbb() {
-        return ybb;
+    public double getLngBB() {
+        return lngBB;
     }
 
-    public void setXa(double xa) {
-        this.xa = xa;
+    //https://wiki.openstreetmap.org/wiki/Mercator#Java
+    private static double y2lat(double aY) {
+        return Math.toDegrees(Math.atan(Math.exp(aY / eartRad)) * 2 - Math.PI / 2);
     }
 
-    public void setXb(double xb) {
-        this.xb = xb;
+    //https://wiki.openstreetmap.org/wiki/Mercator#Java
+    private static double x2lon(double aX) {
+        return Math.toDegrees(aX / eartRad);
     }
 
-    public void setXc(double xc) {
-        this.xc = xc;
+    //https://wiki.openstreetmap.org/wiki/Mercator#Java
+    private static double lat2y(double aLat) {
+        return Math.log(Math.tan(Math.PI / 4 + Math.toRadians(aLat) / 2)) * eartRad;
     }
 
-    public void setYa(double ya) {
-        this.ya = ya;
-    }
-
-    public void setYb(double yb) {
-        this.yb = yb;
-    }
-
-    public void setYc(double yc) {
-        this.yc = yc;
+    //https://wiki.openstreetmap.org/wiki/Mercator#Java
+    private static double lon2x(double aLong) {
+        return Math.toRadians(aLong) * eartRad;
     }
 
     public void computeArea() {
 
-        double u1 = xb - xa;
-        double u2 = yb - ya;
-        double v1 = u2;
-        double v2 = - u1;
+        //enMercate -> (lat, lng) to (y, x)
+        double xa = lon2x(lngA);
+        double xb = lon2x(lngB);
+        double xc = lon2x(lngC);
+        double ya = lat2y(latA);
+        double yb = lat2y(latB);
+        double yc = lat2y(latC);
 
-        yaa = (xc - xa - (u1 / u2) * yc + (v1 / v2) * ya) / ((v1 / v2) - (u1 / u2));
-        ybb = (xc - xb - (u1 / u2) * yc + (v1 / v2) * yb) / ((v1 / v2) - (u1 / u2));
+        double u = (xb - xa) / (yb - ya);
+        double v = (yb - ya) / (xa - xb);
 
-        xaa = (v1 / v2) * yaa + xc - (v1 / v2) * yc;
-        xbb = (v1 / v2) * ybb + xc - (v1 / v2) * yc;
+        double yaa = (xc - xa - u * yc + v * ya) / (v - u);
+        double ybb = (xc - xb - u * yc + v * yb) / (v - u);
+
+        double xaa = xa + v * yaa - v * ya;
+        double xbb = xb + v * ybb - v * yb;
+
+        //deMercate -> (y, x) to (lat, lng)
+        lngAA = x2lon(xaa);
+        lngBB = x2lon(xbb);
+        latAA = y2lat(yaa);
+        latBB = y2lat(ybb);
     }
 }

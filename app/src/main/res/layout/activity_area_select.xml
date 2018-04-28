@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapSettingsNewActivity">
+    tools:context=".AreaSettingsActivity">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -13,10 +13,10 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MapSettingsSelectActivity" />
+        tools:context=".AreaSelectActivity" />
 
     <Button
-        android:id="@+id/btn_calibrate"
+        android:id="@+id/btn_ok"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginBottom="16dp"
@@ -25,6 +25,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_show"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/show"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

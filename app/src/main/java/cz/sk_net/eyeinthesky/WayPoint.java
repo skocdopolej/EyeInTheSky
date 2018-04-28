@@ -8,7 +8,7 @@ public class WayPoint {
 
     private Location location;
     private boolean photoTaken;
-    private Location telemetry;
+    private Telemetry telemetry;
 
     public WayPoint(double lat, double lng) {
         this.location = location;
@@ -26,11 +26,11 @@ public class WayPoint {
         return photoTaken;
     }
 
-    public Location getTelemetry() {
+    public Telemetry getTelemetry() {
         return telemetry;
     }
 
-    public void setTelemetry(Location telemetry) {
+    public void setTelemetry(Telemetry telemetry) {
         this.telemetry = telemetry;
     }
 

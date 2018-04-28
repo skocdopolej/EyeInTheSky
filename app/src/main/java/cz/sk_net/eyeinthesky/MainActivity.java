@@ -34,18 +34,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // Assign buttons
-        Button btn_camera_load = findViewById(R.id.btn_camera);
         Button btn_camera_new = findViewById(R.id.btn_camera);
-        Button btn_map_load = findViewById(R.id.btn_area);
-        Button btn_map_new = findViewById(R.id.btn_area);
+        Button btn_area = findViewById(R.id.btn_area);
         Button btn_calibrate = findViewById(R.id.btn_calibrate);
         Button btn_start = findViewById(R.id.btn_start);
 
         // Set buttons listener
-        btn_camera_load.setOnClickListener(this);
         btn_camera_new.setOnClickListener(this);
-        btn_map_load.setOnClickListener(this);
-        btn_map_new.setOnClickListener(this);
+        btn_area.setOnClickListener(this);
         btn_calibrate.setOnClickListener(this);
         btn_start.setOnClickListener(this);
     }
@@ -58,12 +54,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.btn_camera:
-                intent = new Intent(MainActivity.this, CameraSettingsNewActivity.class);
+                intent = new Intent(MainActivity.this, CameraSettingsActivity.class);
                 startActivityForResult(intent, REQ_CODE_CAMERA);
                 break;
 
             case R.id.btn_area:
-                intent = new Intent(MainActivity.this, MapSettingsNewActivity.class);
+                intent = new Intent(MainActivity.this, AreaSettingsActivity.class);
                 startActivityForResult(intent, REQ_CODE_AREA);
                 break;
 
