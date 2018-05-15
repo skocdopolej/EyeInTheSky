@@ -26,9 +26,9 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
     private float[] m_rotationMatrix = new float[16];
     private float[] m_orientation = new float[4];
 
-    float calX = 0f;
-    float calY = 0f;
-    float calZ = 0f;
+    float calX = 0;
+    float calY = 0;
+    float calZ = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +87,10 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
             @Override
             public void onClick(View v) {
 
+                PositionSensor positionSensor = new PositionSensor(calX, calY, calZ);
+
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("result", 0);
+                resultIntent.putExtra("correction", positionSensor);
 
                 setResult(1, resultIntent);
                 finish();

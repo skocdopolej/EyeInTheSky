@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Camera
     Camera camera;
 
+    // Tablet
+    PositionSensor positionSensor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -69,7 +72,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_start:
+                if (positionSensor == null) {
+                    return;
+                }
                 intent = new Intent(MainActivity.this, FlightActivity.class);
+                intent.putExtra("correction", positionSensor);
                 startActivityForResult(intent, REQ_CODE_START);
                 break;
         }
@@ -105,7 +112,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case REQ_CODE_CALIBRATION:
-                // TODO
+                if ((resultCode != RESULT_CANCELED) && (resultCode == 1)) {
+
+                    positionSensor = (PositionSensor) data.getSerializableExtra("correction");
+
+                    Toast.makeText(this, positionSensor.print(), Toast.LENGTH_LONG).show();
+                }
                 break;
 
             case REQ_CODE_START:

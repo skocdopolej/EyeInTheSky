@@ -75,9 +75,9 @@ public class CameraSettingsActivity extends AppCompatActivity implements View.On
 
             Intent resultIntent = new Intent();
             resultIntent.putExtra("camera", camera);
-
+camera.takePhoto();
             setResult(1, resultIntent);
-            finish();
+            //finish();
         } else {
 
             Toast.makeText(this, "Incomplete settings!", Toast.LENGTH_SHORT).show();
