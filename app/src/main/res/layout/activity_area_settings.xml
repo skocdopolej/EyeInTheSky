@@ -7,11 +7,11 @@
     tools:context=".AreaSettingsActivity">
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_ok"
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginBottom="64dp"
-        android:text="@string/save"
+        android:text="@string/ok"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -17,17 +17,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:screenOrientation="landscape">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CameraSettingsActivity" android:screenOrientation="landscape" />
-        <activity android:name=".AreaSettingsActivity" android:screenOrientation="landscape" />
-        <activity android:name=".CalibrationActivity" android:screenOrientation="landscape" />
-        <activity android:name=".FlightActivity" android:screenOrientation="landscape" />
+        <activity
+            android:name=".CameraSettingsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AreaSettingsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".CalibrationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".FlightActivity"
+            android:screenOrientation="landscape" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -42,7 +52,8 @@
 
         <activity
             android:name=".AreaSelectActivity"
-            android:label="@string/title_activity_map_settings_new"></activity>
+            android:label="@string/title_activity_map_settings_new" />
+        <activity android:name=".FlightSettingsActivity"></activity>
     </application>
 
 </manifest>

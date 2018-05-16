@@ -22,12 +22,17 @@ public class Camera implements Serializable {
         this.shutterURL = shutterURL;
     }
 
-    public float getFov(float a) {
+    public float getFovX(float s) {
 
-        return (float) Math.toDegrees((2 * Math.atan(a / 2 * focalLength)));
+        return (chipSizeX * s) / focalLength;
     }
 
-    public String print() {
+    public float getFovY(float s) {
+
+        return (chipSizeY * s) / focalLength;
+    }
+
+    public String getParams() {
         return (name + ";" + resolutionX + ";" + resolutionY + ";" + chipSizeX + ";" + chipSizeY + ";" + focalLength + ";" + shutterURL + "\n");
     }
 

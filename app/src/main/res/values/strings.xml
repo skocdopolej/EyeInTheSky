@@ -44,4 +44,14 @@
     <string name="wp">WP</string>
     <string name="next"><![CDATA[>>]]></string>
     <string name="prev"><![CDATA[<<]]></string>
+    <string name="gsd_or_altitude">Select GSD or altitude:</string>
+    <string name="gsd">GSD</string>
+    <string name="prefered_vector">Preferred vector:</string>
+    <string name="v1">V1</string>
+    <string name="v2">V2</string>
+    <string name="v3">V3</string>
+    <string name="v4">V4</string>
+    <string name="overlap">Overlap</string>
+    <string name="longitudinal">Longitudinal</string>
+    <string name="lateral">Lateral</string>
 </resources>

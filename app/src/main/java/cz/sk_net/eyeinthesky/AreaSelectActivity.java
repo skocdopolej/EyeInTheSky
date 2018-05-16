@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -83,34 +84,44 @@ public class AreaSelectActivity extends FragmentActivity implements OnMapReadyCa
 
             case R.id.btn_ok:
 
-                if (area == null) {
+                if (markerCounter == 3) {
+
+                    if (area == null) {
+
+                        area = new Area(
+                                arrLocation.get(0).latitude, arrLocation.get(1).latitude, arrLocation.get(2).latitude,
+                                arrLocation.get(0).longitude, arrLocation.get(1).longitude, arrLocation.get(2).longitude
+                        );
+                        area.computeArea();
+                    }
+
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("area", area);
+                    setResult(1, resultIntent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "3 points needed!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.btn_show:
+                if (markerCounter == 3) {
 
                     area = new Area(
                             arrLocation.get(0).latitude, arrLocation.get(1).latitude, arrLocation.get(2).latitude,
                             arrLocation.get(0).longitude, arrLocation.get(1).longitude, arrLocation.get(2).longitude
                     );
+                    area.computeArea();
+
+                    mMap.clear();
+
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(area.getLatA(), area.getLngA())));
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(area.getLatB(), area.getLngB())));
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(area.getLatAA(), area.getLngAA())));
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(area.getLatBB(), area.getLngBB())));
+                } else {
+                    Toast.makeText(this, "3 points needed!", Toast.LENGTH_SHORT).show();
                 }
-
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("area", area);
-                setResult(1, resultIntent);
-                finish();
-                break;
-
-            case R.id.btn_show:
-                area = new Area(
-                        arrLocation.get(0).latitude, arrLocation.get(1).latitude, arrLocation.get(2).latitude,
-                        arrLocation.get(0).longitude, arrLocation.get(1).longitude, arrLocation.get(2).longitude
-                );
-                area.computeArea();
-
-                mMap.clear();
-
-                mMap.addMarker(new MarkerOptions().position(new LatLng(area.getLatA(), area.getLngA())));
-                mMap.addMarker(new MarkerOptions().position(new LatLng(area.getLatB(), area.getLngB())));
-                mMap.addMarker(new MarkerOptions().position(new LatLng(area.getLatAA(), area.getLngAA())));
-                mMap.addMarker(new MarkerOptions().position(new LatLng(area.getLatBB(), area.getLngBB())));
-
                 break;
 
 

@@ -282,7 +282,7 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
                     return;
                 }
 
-                Toast.makeText(this, "You've reached position", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Pohoto taken.", Toast.LENGTH_SHORT).show();
                 arrLocation.get(wpCtr).setPhotoTaken(true);
                 findViewById(txvId[wpCtr]).setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
 
@@ -370,7 +370,7 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
                     1);
         }
 
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/telemetry.txt");
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/telemetry.kml");
 
         FileOutputStream outputStream;
         try {

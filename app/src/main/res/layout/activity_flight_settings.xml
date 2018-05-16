@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FlightSettingsActivity">
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/ok"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txv_gsd_alt_caption"
+        android:layout_width="272dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/gsd_or_altitude"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txv_gsd"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/gsd"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_gsd_alt_caption" />
+
+    <EditText
+        android:id="@+id/txb_gsd"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/gsd"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_gsd"
+        app:layout_constraintTop_toBottomOf="@+id/txv_gsd_alt_caption" />
+
+    <TextView
+        android:id="@+id/txv_altitude"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/altitude"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_gsd" />
+
+    <EditText
+        android:id="@+id/txb_altitude"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/altitude"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_altitude"
+        app:layout_constraintTop_toBottomOf="@+id/txb_gsd" />
+
+    <TextView
+        android:id="@+id/txv_overlap"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="72dp"
+        android:text="@string/overlap"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_altitude" />
+
+    <EditText
+        android:id="@+id/txb_overlap_longitudal"
+        android:layout_width="160dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:hint="@string/longitudinal"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_overlap"
+        app:layout_constraintTop_toBottomOf="@+id/txb_altitude" />
+
+    <EditText
+        android:id="@+id/txb_overlap_lateral"
+        android:layout_width="160dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:hint="@string/lateral"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txb_overlap_longitudal"
+        app:layout_constraintTop_toBottomOf="@+id/txb_altitude" />
+
+    <TextView
+        android:id="@+id/txv_prefered_vector"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/prefered_vector"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_prefered_vector">
+
+        <RadioButton
+            android:id="@+id/rb_v1"
+            android:layout_width="128dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/v1"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rb_v1" />
+
+        <RadioButton
+            android:id="@+id/rb_v2"
+            android:layout_width="128dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/v2"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rb_v1" />
+
+        <RadioButton
+            android:id="@+id/rb_v3"
+            android:layout_width="128dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/v3"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rb_v1" />
+
+        <RadioButton
+            android:id="@+id/rb_v4"
+            android:layout_width="128dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/v4"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rb_v3" />
+    </RadioGroup>
+
+</android.support.constraint.ConstraintLayout>

@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Camera
     Camera camera;
 
+    // Area
+    Area area;
+
     // Tablet
     PositionSensor positionSensor;
 
@@ -41,12 +44,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btn_area = findViewById(R.id.btn_area);
         Button btn_calibrate = findViewById(R.id.btn_calibrate);
         Button btn_start = findViewById(R.id.btn_start);
+        Button btn_flight = findViewById(R.id.btn_flight);
 
         // Set buttons listener
         btn_camera_new.setOnClickListener(this);
         btn_area.setOnClickListener(this);
         btn_calibrate.setOnClickListener(this);
         btn_start.setOnClickListener(this);
+        btn_flight.setOnClickListener(this);
     }
 
     @Override
@@ -63,6 +68,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_area:
                 intent = new Intent(MainActivity.this, AreaSettingsActivity.class);
+                startActivityForResult(intent, REQ_CODE_AREA);
+                break;
+
+            case R.id.btn_flight:
+                intent = new Intent(MainActivity.this, FlightSettingsActivity.class);
+                intent.putExtra("camera", camera);
+                intent.putExtra("area", area);
                 startActivityForResult(intent, REQ_CODE_AREA);
                 break;
 
@@ -94,17 +106,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     camera = (Camera) data.getSerializableExtra("camera");
 
-                    Toast.makeText(this, camera.print(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, camera.getParams(), Toast.LENGTH_LONG).show();
                 }
 
                 if (resultCode == RESULT_CANCELED) {
 
-                    // TODO
+                    Toast.makeText(this, "Camera settings canceled.", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
             case REQ_CODE_AREA:
-                // TODO
+                if ((resultCode != RESULT_CANCELED) && (resultCode == 1)) {
+
+                    area = (Area) data.getSerializableExtra("area");
+
+                    Toast.makeText(this, "Area selected.", Toast.LENGTH_SHORT).show();
+                }
+
+                if (resultCode == RESULT_CANCELED) {
+
+                    Toast.makeText(this, "Area selection canceled.", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case REQ_CODE_FLIGHT:
@@ -116,22 +138,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     positionSensor = (PositionSensor) data.getSerializableExtra("correction");
 
-                    Toast.makeText(this, positionSensor.print(), Toast.LENGTH_LONG).show();
-                }
-                break;
-
-            case REQ_CODE_START:
-                if (resultCode == 1) {
-
-                    // TODO
-                } else if (resultCode == 2) {
-
-                    // TODO
+                    Toast.makeText(this, "Calibration successful.", Toast.LENGTH_SHORT).show();
                 }
 
                 if (resultCode == RESULT_CANCELED) {
 
-                    // TODO
+                    Toast.makeText(this, "Calibration canceled.", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case REQ_CODE_START:
+                if ((resultCode != RESULT_CANCELED) && (resultCode == 1)) {
+
+                    Toast.makeText(this, "Telemetry saved.", Toast.LENGTH_SHORT).show();
+                }
+
+                if (resultCode == RESULT_CANCELED) {
+
+                    Toast.makeText(this, "Flight canceled.", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

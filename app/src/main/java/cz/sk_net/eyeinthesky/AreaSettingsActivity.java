@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AreaSettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,7 +43,7 @@ public class AreaSettingsActivity extends AppCompatActivity implements View.OnCl
 
         setContentView(R.layout.activity_area_settings);
 
-        Button btn_save = findViewById(R.id.btn_save);
+        Button btn_save = findViewById(R.id.btn_ok);
         Button btn_select_area = findViewById(R.id.btn_select_area);
         Button btn_compute = findViewById(R.id.btn_compute);
 
@@ -68,13 +69,38 @@ public class AreaSettingsActivity extends AppCompatActivity implements View.OnCl
 
         switch (v.getId()) {
 
-            case R.id.btn_save:
-                Intent resultIntent = new Intent();
-                if (area != null) {
+            case R.id.btn_ok:
+
+                if (!num_a_lat.getText().toString().equals("")
+                        && !num_a_lng.getText().toString().equals("")
+                        && !num_b_lat.getText().toString().equals("")
+                        && !num_b_lng.getText().toString().equals("")
+                        && !num_c_lat.getText().toString().equals("")
+                        && !num_c_lng.getText().toString().equals("")) {
+
+                    Intent resultIntent = new Intent();
+
+                    if (area == null) {
+
+                        area = new Area(
+                                Double.parseDouble(num_a_lat.getText().toString()),
+                                Double.parseDouble(num_b_lat.getText().toString()),
+                                Double.parseDouble(num_c_lat.getText().toString()),
+                                Double.parseDouble(num_a_lng.getText().toString()),
+                                Double.parseDouble(num_b_lng.getText().toString()),
+                                Double.parseDouble(num_c_lng.getText().toString())
+                        );
+
+                        area.computeArea();
+                    }
+
                     resultIntent.putExtra("area", area);
+                    setResult(1, resultIntent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "All fields required!", Toast.LENGTH_SHORT).show();
                 }
-                setResult(1, resultIntent);
-                finish();
+
                 break;
 
             case R.id.btn_select_area:
@@ -84,24 +110,33 @@ public class AreaSettingsActivity extends AppCompatActivity implements View.OnCl
 
             case R.id.btn_compute:
 
-                //Longitude == X
-                //Latitude  == Y
-                area = new Area(
-                        Double.parseDouble(num_a_lat.getText().toString()),
-                        Double.parseDouble(num_b_lat.getText().toString()),
-                        Double.parseDouble(num_c_lat.getText().toString()),
-                        Double.parseDouble(num_a_lng.getText().toString()),
-                        Double.parseDouble(num_b_lng.getText().toString()),
-                        Double.parseDouble(num_c_lng.getText().toString())
-                        );
+                if (!num_a_lat.getText().toString().equals("")
+                        && !num_a_lng.getText().toString().equals("")
+                        && !num_b_lat.getText().toString().equals("")
+                        && !num_b_lng.getText().toString().equals("")
+                        && !num_c_lat.getText().toString().equals("")
+                        && !num_c_lng.getText().toString().equals("")) {
 
-                area.computeArea();
+                    //Longitude == X
+                    //Latitude  == Y
+                    area = new Area(
+                            Double.parseDouble(num_a_lat.getText().toString()),
+                            Double.parseDouble(num_b_lat.getText().toString()),
+                            Double.parseDouble(num_c_lat.getText().toString()),
+                            Double.parseDouble(num_a_lng.getText().toString()),
+                            Double.parseDouble(num_b_lng.getText().toString()),
+                            Double.parseDouble(num_c_lng.getText().toString())
+                    );
 
-                txb_aa_lat.setText(Double.toString(area.getLatAA()));
-                txb_aa_lng.setText(Double.toString(area.getLngAA()));
-                txb_bb_lat.setText(Double.toString(area.getLatBB()));
-                txb_bb_lng.setText(Double.toString(area.getLngBB()));
+                    area.computeArea();
 
+                    txb_aa_lat.setText(Double.toString(area.getLatAA()));
+                    txb_aa_lng.setText(Double.toString(area.getLngAA()));
+                    txb_bb_lat.setText(Double.toString(area.getLatBB()));
+                    txb_bb_lng.setText(Double.toString(area.getLngBB()));
+                } else {
+                    Toast.makeText(this, "All fields required!", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -127,6 +162,5 @@ public class AreaSettingsActivity extends AppCompatActivity implements View.OnCl
             txb_bb_lat.setText(Double.toString(area.getLatBB()));
             txb_bb_lng.setText(Double.toString(area.getLngBB()));
         }
-
     }
 }
