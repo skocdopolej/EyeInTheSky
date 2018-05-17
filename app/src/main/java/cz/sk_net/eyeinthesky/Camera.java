@@ -27,13 +27,37 @@ public class Camera implements Serializable {
         return (chipSizeX * s) / focalLength;
     }
 
+    public float getChipSizeX() {
+        return chipSizeX;
+    }
+
+    public float getFocalLength() {
+        return focalLength;
+    }
+
     public float getFovY(float s) {
 
         return (chipSizeY * s) / focalLength;
     }
 
+    public int getResolutionX() {
+        return resolutionX;
+    }
+
+    public int getResolutionY() {
+        return resolutionY;
+    }
+
     public String getParams() {
         return (name + ";" + resolutionX + ";" + resolutionY + ";" + chipSizeX + ";" + chipSizeY + ";" + focalLength + ";" + shutterURL + "\n");
+    }
+
+    public void shrinkChipSizeX(float shrinkX) {
+        chipSizeX = chipSizeX / (chipSizeX + shrinkX);
+    }
+
+    public void shrinkChipSizeY(float shrinkY) {
+        chipSizeY = chipSizeY / (chipSizeY + shrinkY);
     }
 
     public void takePhoto() {

@@ -18,6 +18,30 @@
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/save"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_load"
+        android:layout_width="256dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/load"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/txv_gsd_alt_caption"
         android:layout_width="272dp"
@@ -34,7 +58,6 @@
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
         android:text="@string/gsd"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,10 +68,9 @@
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/gsd"
-        android:inputType="number"
+        android:inputType="number|numberDecimal"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/txv_gsd"
         app:layout_constraintTop_toBottomOf="@+id/txv_gsd_alt_caption" />
@@ -72,7 +94,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/altitude"
-        android:inputType="number"
+        android:inputType="number|numberDecimal"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/txv_altitude"
         app:layout_constraintTop_toBottomOf="@+id/txb_gsd" />
@@ -82,7 +104,7 @@
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="64dp"
         android:text="@string/overlap"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +115,7 @@
         android:layout_width="160dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="64dp"
         android:ems="10"
         android:hint="@string/longitudinal"
         android:inputType="number"
@@ -106,13 +128,50 @@
         android:layout_width="160dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="64dp"
         android:ems="10"
         android:hint="@string/lateral"
         android:inputType="number"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/txb_overlap_longitudal"
         app:layout_constraintTop_toBottomOf="@+id/txb_altitude" />
+
+    <TextView
+        android:id="@+id/txv_tolerance"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/tolerance"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_overlap" />
+
+    <EditText
+        android:id="@+id/txb_tolerance_angle"
+        android:layout_width="160dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/angle"
+        android:inputType="number|numberDecimal"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txv_tolerance"
+        app:layout_constraintTop_toBottomOf="@+id/txb_overlap_longitudal" />
+
+    <EditText
+        android:id="@+id/txb_tolerance_distance"
+        android:layout_width="160dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/distance"
+        android:inputType="number|numberDecimal"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/txb_tolerance_angle"
+        app:layout_constraintTop_toBottomOf="@+id/txb_overlap_lateral" />
 
     <TextView
         android:id="@+id/txv_prefered_vector"
@@ -127,9 +186,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
+        android:id="@+id/rb_group"
         android:layout_width="256dp"
         android:layout_height="256dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"

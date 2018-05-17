@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
@@ -23,17 +24,29 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FlightActivity extends AppCompatActivity implements LocationListener, SensorEventListener, View.OnClickListener {
 
     PositionSensor positionSensor;
-    ArrayList<WayPoint> arrLocation = new ArrayList<>();
-    int txvId[] = new int[64];
-    int wpCtr = 0;
-    String telemetry = "----TELEMETRY RECORD----\n";
+    Camera camera;
+    Area area;
+    Flight flight;
+    protected int tileCountX;
+    protected int tileCountY;
+    int txvId[] = new int[9];
+    protected int wpCtr = 0;
+    String telemetry = "<?xml version='1.0' encoding='UTF-8'?>\n" +
+            "<kml xmlns='http://www.opengis.net/kml/2.2'>\n";
 
     float[] m_lastAccel = new float[3];
     float[] m_lastMagFields = new float[3];
@@ -79,6 +92,21 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
             calZ = positionSensor.getPitchCorrection();
         }
 
+        if (intent.hasExtra("camera")) {
+
+            camera = (Camera) intent.getSerializableExtra("camera");
+        }
+
+        if (intent.hasExtra("area")) {
+
+            area = (Area) intent.getSerializableExtra("area");
+        }
+
+        if (intent.hasExtra("flight")) {
+
+            flight = (Flight) intent.getSerializableExtra("flight");
+        }
+
         Button btn_end = findViewById(R.id.btn_end);
         Button btn_prev = findViewById(R.id.btn_prev);
         Button btn_next = findViewById(R.id.btn_next);
@@ -118,111 +146,59 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
             return;
         }
 
+        if (area.getPath() != null) {
+
+            loadArea(area.getPath());
+            tileCountX = (int) Math.sqrt(area.getArrLocation().size());
+            tileCountY = area.getArrLocation().size() / tileCountX;
+        } else {
+
+            Location a = new Location("GoogleMaps");
+            Location b = new Location("GoogleMaps");
+            Location aa = new Location("GoogleMaps");
+            Location bb = new Location("GoogleMaps");
+
+            a.setLatitude(area.getLatA());
+            a.setLongitude(area.getLngA());
+            b.setLatitude(area.getLatB());
+            b.setLongitude(area.getLngB());
+            aa.setLatitude(area.getLatAA());
+            aa.setLongitude(area.getLngAA());
+            bb.setLatitude(area.getLatBB());
+            bb.setLongitude(area.getLngBB());
+
+            area.getWayPoints(a.distanceTo(b), a.distanceTo(aa), area.getDeltaX(), area.getDeltaY(), a.bearingTo(b));
+
+            tileCountX = area.getTileCountX();
+            tileCountY = area.getTileCountY();
+        }
+
         TableLayout tbl_grid = findViewById(R.id.tbl_grid);
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < tileCountX; i++) {
 
             // Row
             TableRow tbl_row = new TableRow(this);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             tbl_row.setLayoutParams(lp);
 
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < tileCountY; j++) {
 
                 // Cell
                 TextView txv_wp = new TextView(this);
-                txv_wp.setText((i * 8 + j) + "");
-                txv_wp.setTextSize(TypedValue.COMPLEX_UNIT_SP, 512/16);
-                txv_wp.setWidth(512/8);
-                txv_wp.setHeight(512/8);
+                txv_wp.setText((i * tileCountX + j) + "");
+                txv_wp.setTextSize(TypedValue.COMPLEX_UNIT_SP, 512/(tileCountX * 2));
+                txv_wp.setWidth(512/tileCountX);
+                txv_wp.setHeight(512/tileCountY);
                 txv_wp.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 txv_wp.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-                txv_wp.setId((txvId[i * 8 + j] = View.generateViewId()));
+                txv_wp.setId((txvId[i * tileCountX + j] = View.generateViewId()));
 
                 tbl_row.addView(txv_wp);
             }
 
             tbl_grid.addView(tbl_row, i);
         }
-
-        // Testing
-        /*
-        arrLocation.add(new WayPoint(49.4410372, 15.7671958));
-        arrLocation.add(new WayPoint(49.4408517, 15.7672992));
-        arrLocation.add(new WayPoint(49.4400764, 15.7664717));
-        arrLocation.add(new WayPoint(49.4390500, 15.7668511));
-        arrLocation.add(new WayPoint(49.4384028, 15.7682311));
-        arrLocation.add(new WayPoint(49.4379111, 15.7698942));
-        arrLocation.add(new WayPoint(49.4370547, 15.7694114));
-        arrLocation.add(new WayPoint(49.4381150, 15.7674747));
-        arrLocation.add(new WayPoint(49.4391719, 15.7660344));
-        */
-
-        arrLocation.add(new WayPoint(49.3929244, 15.8967881));
-        arrLocation.add(new WayPoint(49.3921197, 15.8992814));
-        arrLocation.add(new WayPoint(49.3913856, 15.9018092));
-        arrLocation.add(new WayPoint(49.3907564, 15.9044069));
-        arrLocation.add(new WayPoint(49.3902142, 15.9070464));
-        arrLocation.add(new WayPoint(49.3897139, 15.9097003));
-        arrLocation.add(new WayPoint(49.3891886, 15.9123478));
-        arrLocation.add(new WayPoint(49.3885792, 15.9149428));
-        arrLocation.add(new WayPoint(49.3878511, 15.9174733));
-        arrLocation.add(new WayPoint(49.3870636, 15.9199544));
-        arrLocation.add(new WayPoint(49.3862667, 15.9224261));
-        arrLocation.add(new WayPoint(49.3854617, 15.9249083));
-        arrLocation.add(new WayPoint(49.3846594, 15.9273761));
-        arrLocation.add(new WayPoint(49.3838650, 15.9298464));
-        arrLocation.add(new WayPoint(49.3830686, 15.9323261));
-        arrLocation.add(new WayPoint(49.3822647, 15.9347925));
-        arrLocation.add(new WayPoint(49.3814561, 15.9372694));
-        arrLocation.add(new WayPoint(49.3806519, 15.9397303));
-        arrLocation.add(new WayPoint(49.3798514, 15.9422086));
-        arrLocation.add(new WayPoint(49.3790358, 15.9446736));
-        arrLocation.add(new WayPoint(49.3782361, 15.9471439));
-        arrLocation.add(new WayPoint(49.3774478, 15.9496303));
-        arrLocation.add(new WayPoint(49.3766453, 15.9521019));
-        arrLocation.add(new WayPoint(49.3758428, 15.9545764));
-        arrLocation.add(new WayPoint(49.3750378, 15.9570494));
-        arrLocation.add(new WayPoint(49.3742353, 15.9595117));
-        arrLocation.add(new WayPoint(49.3734311, 15.9619939));
-        arrLocation.add(new WayPoint(49.3726311, 15.9644575));
-        arrLocation.add(new WayPoint(49.3718103, 15.9669239));
-        arrLocation.add(new WayPoint(49.3709814, 15.9693619));
-        arrLocation.add(new WayPoint(49.3701361, 15.9718108));
-        arrLocation.add(new WayPoint(49.3684508, 15.9766897));
-        arrLocation.add(new WayPoint(49.3685547, 15.9767503));
-        arrLocation.add(new WayPoint(49.3693992, 15.9743200));
-        arrLocation.add(new WayPoint(49.3702350, 15.9718872));
-        arrLocation.add(new WayPoint(49.3710775, 15.9694492));
-        arrLocation.add(new WayPoint(49.3719125, 15.9670044));
-        arrLocation.add(new WayPoint(49.3727358, 15.9645353));
-        arrLocation.add(new WayPoint(49.3735392, 15.9620556));
-        arrLocation.add(new WayPoint(49.3743400, 15.9595867));
-        arrLocation.add(new WayPoint(49.3751400, 15.9571125));
-        arrLocation.add(new WayPoint(49.3759442, 15.9546433));
-        arrLocation.add(new WayPoint(49.3767500, 15.9521772));
-        arrLocation.add(new WayPoint(49.3775456, 15.9496975));
-        arrLocation.add(new WayPoint(49.3783436, 15.9472111));
-        arrLocation.add(new WayPoint(49.3791478, 15.9447419));
-        arrLocation.add(new WayPoint(49.3799561, 15.9422717));
-        arrLocation.add(new WayPoint(49.3807586, 15.9397961));
-        arrLocation.add(new WayPoint(49.3815592, 15.9373311));
-        arrLocation.add(new WayPoint(49.3823658, 15.9348553));
-        arrLocation.add(new WayPoint(49.3831569, 15.9323878));
-        arrLocation.add(new WayPoint(49.3839611, 15.9299067));
-        arrLocation.add(new WayPoint(49.3847606, 15.9274417));
-        arrLocation.add(new WayPoint(49.3855631, 15.9249728));
-        arrLocation.add(new WayPoint(49.3863644, 15.9224917));
-        arrLocation.add(new WayPoint(49.3871633, 15.9200147));
-        arrLocation.add(new WayPoint(49.3879481, 15.9175483));
-        arrLocation.add(new WayPoint(49.3886769, 15.9149978));
-        arrLocation.add(new WayPoint(49.3892942, 15.9123986));
-        arrLocation.add(new WayPoint(49.3898214, 15.9097392));
-        arrLocation.add(new WayPoint(49.3903217, 15.9070919));
-        arrLocation.add(new WayPoint(49.3914914, 15.9018669));
-        arrLocation.add(new WayPoint(49.3922203, 15.8993403));
-        arrLocation.add(new WayPoint(49.3930336, 15.8968806));
-
 
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this);
 
@@ -246,7 +222,7 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
             bearing += 360;
         }
 
-        float bearingTo = location.bearingTo(arrLocation.get(wpCtr).getLocation());
+        float bearingTo = location.bearingTo(area.getArrLocation().get(wpCtr).getLocation());
         if (bearingTo < 0) {
 
             bearingTo += 360;
@@ -263,46 +239,57 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
         tx_vel.setText(location.getSpeed() + " m/s");
         tx_bear.setText(bearing + "°");
         tx_wp.setText("WP: " + wpCtr);
-        tx_dist.setText(String.format("%.2f", location.distanceTo(arrLocation.get(wpCtr).getLocation())) + " m");
+        tx_dist.setText(String.format("%.2f", location.distanceTo(area.getArrLocation().get(wpCtr).getLocation())) + " m");
         tx_bear_to.setText(String.format("%.2f", bearingTo) + "°");
 
-        if (!arrLocation.get(wpCtr).isPhotoTaken()) {
+        if (!area.getArrLocation().get(wpCtr).isPhotoTaken()) {
 
-            if (location.distanceTo(arrLocation.get(wpCtr).getLocation()) < 25) {
+            if (location.distanceTo(area.getArrLocation().get(wpCtr).getLocation()) < flight.getDistance()) {
 
-                if (Math.abs(Math.toDegrees(m_orientation[1] - calY)) > 50) {
+                if (Math.abs(Math.toDegrees(m_orientation[1] - calY)) > flight.getAngle()) {
 
                     Toast.makeText(this, "Roll over limit", Toast.LENGTH_SHORT).show();
+                    findViewById(txvId[wpCtr]).setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
                     return;
                 }
 
-                if (Math.abs(Math.toDegrees(m_orientation[2] - calZ)) > 50) {
+                if (Math.abs(Math.toDegrees(m_orientation[2] - calZ)) > flight.getAngle()) {
 
                     Toast.makeText(this, "Pitch over limit!", Toast.LENGTH_SHORT).show();
+                    findViewById(txvId[wpCtr]).setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
                     return;
                 }
 
+                camera.takePhoto();
                 Toast.makeText(this, "Pohoto taken.", Toast.LENGTH_SHORT).show();
-                arrLocation.get(wpCtr).setPhotoTaken(true);
+                area.getArrLocation().get(wpCtr).setPhotoTaken(true);
                 findViewById(txvId[wpCtr]).setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
 
-                telemetry += "Waypoint:\t" + wpCtr + "\n"
-                        + "WP Loc:\t\t" + arrLocation.get(wpCtr).getLocation().getLatitude() + "° N," + arrLocation.get(wpCtr).getLocation().getLongitude() + "° E\n"
-                        + "GPS:\t\t" + location.getLatitude() + "° N," + location.getLongitude() + "° E\n"
-                        + "Bearing To:\t" + bearingTo + "\n"
-                        + "Distance:\t" + location.distanceTo(arrLocation.get(wpCtr).getLocation()) + "\n"
-                        + "Time:\t\t" + location.getTime() + "\n"
-                        + "Accuracy:\t" + location.getAccuracy() + " m\n"
-                        + "Altitude:\t" + location.getAltitude() + " m\n"
-                        + "Bearing:\t" + bearing + "°\n"
-                        + "Speed:\t\t" + location.getSpeed() + " m/s\n"
-                        + "Yaw:\t\t" + yaw + "°\n"
-                        + "Roll:\t\t" + (Math.toDegrees(m_orientation[1] - calY)) + "°\n"
-                        + "Pitch:\t\t" + (Math.toDegrees(m_orientation[2] - calZ)) + "°\n\n";
+                telemetry += "<Document>\n\t<Placemark>\n"
+                        + "\t\t<name>WayPoint_" + wpCtr + "</name>\n"
+                        + "\t\t\t<description>" + area.getArrLocation().get(wpCtr).getLocation().getLongitude() + "," + area.getArrLocation().get(wpCtr).getLocation().getLatitude() + "</description>\n"
+                        + "\t\t\t<Point>\n"
+                        + "\t\t\t\t<coordinates>" + location.getLongitude() + "," + location.getLatitude() + "</coordinates>\n"
+                        + "\t\t\t</Point>\n"
+                        + "\t\t\t<TimeStamp>\t\n\t\t\t\t<when>" + location.getTime() + "</when>\n\t\t\t</TimeStamp>\n"
+                        + "\t\t\t<altitude>" + location.getAltitude() + "</altitude>\n"
+                        + "\t\t\t<Orientation>\n"
+                        + "\t\t\t\t<heading>" + bearing + "</heading>\n"
+                        + "\t\t\t\t<roll>" + (Math.toDegrees(m_orientation[1] - calY)) + "</roll>\n"
+                        + "\t\t\t\t<tilt>" + (Math.toDegrees(m_orientation[2] - calZ)) + "</tilt>\n"
+                        + "\t\t\t</Orientation>\n"
+                        + "\t\t\t<ExtendedData>\n"
+                        + "\t\t\t\t<Data name=\"bearingTo\">\n\t\t<value>" + bearingTo + "</value>\n\t</Data>\n"
+                        + "\t\t\t\t<Data name=\"distanceTo\">\n\t\t<value>" + location.distanceTo(area.getArrLocation().get(wpCtr).getLocation()) + "</value>\n\t</Data>\n"
+                        + "\t\t\t\t<Data name=\"accuracy\">\n\t\t<value>" + location.getAccuracy() + "</value>\n\t</Data>\n"
+                        + "\t\t\t\t<Data name=\"headingGeoMag\">\n\t\t<value>" + yaw + "</value>\n\t</Data>\n"
+                        + "\t\t\t\t<Data name=\"speed\">\n\t\t<value>" + location.getSpeed() + "</value>\n\t</Data>\n"
+                        + "\t\t\t</ExtendedData>\n"
+                        + "\t</Placemark>\n</Document>\n";
 
                 wpCtr++;
 
-                if (wpCtr > arrLocation.size() - 1) {
+                if (wpCtr > area.getArrLocation().size() - 1) {
                     wpCtr = 0;
                 }
                 txv_wp.setText("" + wpCtr);
@@ -334,7 +321,7 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("result", 0);
 
-                telemetry += "\n----END OF TELEMETRY RECORD----\n";
+                telemetry += "</kml>\n";
                 writeToFile(telemetry);
 
                 setResult(1, resultIntent);
@@ -344,14 +331,14 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
             case R.id.btn_prev:
                 wpCtr--;
                 if (wpCtr < 0) {
-                    wpCtr = arrLocation.size() - 1;
+                    wpCtr = area.getArrLocation().size() - 1;
                 }
                 txv_wp.setText("" + wpCtr);
                 break;
 
             case R.id.btn_next:
                 wpCtr++;
-                if (wpCtr > arrLocation.size() - 1) {
+                if (wpCtr > area.getArrLocation().size() - 1) {
                     wpCtr = 0;
                 }
                 txv_wp.setText("" + wpCtr);
@@ -379,6 +366,50 @@ public class FlightActivity extends AppCompatActivity implements LocationListene
             outputStream.close();
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadArea(String filePath) {
+
+        int permission = ActivityCompat.checkSelfPermission(FlightActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(FlightActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1);
+        }
+
+        String line;
+
+        try {
+
+            area = new Area(0,0,0,0,0,0);
+
+            FileInputStream is = new FileInputStream (new File(filePath));
+            InputStreamReader isReader = new InputStreamReader(is);
+            BufferedReader bfReader = new BufferedReader(isReader);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            line = bfReader.readLine();
+            stringBuilder.append(line + System.getProperty("line.separator"));
+
+            while ((line = bfReader.readLine()) != null) {
+
+                if (line.contains("<coordinates>")) {
+                    line = line.replace("<coordinates>", "");
+                    line = line.replace("</coordinates>", "");
+                    List<String> coordsArray = Arrays.asList(line.split(","));
+                    Log.i("COORDS", (coordsArray.get(1) + "," + coordsArray.get(0)));
+                    area.addWP((Float.parseFloat(coordsArray.get(1))), Float.parseFloat(coordsArray.get(0)));
+                }
+            }
+
+            is.close();
+            bfReader.close();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

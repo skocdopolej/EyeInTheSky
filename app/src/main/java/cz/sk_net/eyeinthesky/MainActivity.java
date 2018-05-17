@@ -14,18 +14,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Intent request codes
     public static final int REQ_CODE_CAMERA = 10;
     public static final int REQ_CODE_AREA = 20;
-    public static final int REQ_CODE_CALIBRATION = 30;
-    public static final int REQ_CODE_FLIGHT = 40;
+    public static final int REQ_CODE_FLIGHT = 30;
+    public static final int REQ_CODE_CALIBRATION = 40;
     public static final int REQ_CODE_START = 50;
 
-    // Camera
+    // Camera settings
     Camera camera;
 
-    // Area
+    // Area settings
     Area area;
 
-    // Tablet
+    // Tablet sensor calibration
     PositionSensor positionSensor;
+
+    // Flight params
+    Flight flight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +75,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_flight:
+                if (camera == null) {
+                    Toast.makeText(this, "Camera settings required!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 intent = new Intent(MainActivity.this, FlightSettingsActivity.class);
                 intent.putExtra("camera", camera);
                 intent.putExtra("area", area);
-                startActivityForResult(intent, REQ_CODE_AREA);
+                startActivityForResult(intent, REQ_CODE_FLIGHT);
                 break;
 
             case R.id.btn_calibrate:
@@ -85,10 +92,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_start:
                 if (positionSensor == null) {
+                    Toast.makeText(this, "Calibration required!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (camera == null) {
+                    Toast.makeText(this, "Camera settings required!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (area == null) {
+                    Toast.makeText(this, "Area selection required!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if ((area.getPath() == null) && (area.getArrLocation() == null)) {
+                    Toast.makeText(this, "Flight settings required!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 intent = new Intent(MainActivity.this, FlightActivity.class);
                 intent.putExtra("correction", positionSensor);
+                intent.putExtra("camera", camera);
+                intent.putExtra("area", area);
+                intent.putExtra("flight", flight);
                 startActivityForResult(intent, REQ_CODE_START);
                 break;
         }
@@ -130,7 +154,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case REQ_CODE_FLIGHT:
-                // TODO
+                if ((resultCode != RESULT_CANCELED) && (resultCode == 1)) {
+
+                    Toast.makeText(this, "Flight settings successful.", Toast.LENGTH_SHORT).show();
+                }
+
+                if (resultCode == RESULT_CANCELED) {
+
+                    Toast.makeText(this, "Flight settings canceled.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                area = (Area) data.getSerializableExtra("area");
+                flight = (Flight) data.getSerializableExtra("flight");
                 break;
 
             case REQ_CODE_CALIBRATION:

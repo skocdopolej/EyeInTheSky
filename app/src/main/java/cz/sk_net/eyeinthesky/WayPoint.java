@@ -8,10 +8,8 @@ public class WayPoint {
 
     private Location location;
     private boolean photoTaken;
-    private Telemetry telemetry;
 
-    public WayPoint(double lat, double lng) {
-        this.location = location;
+    WayPoint(double lat, double lng) {
         photoTaken = false;
         location = new Location("GoogleMaps");
         location.setLatitude(lat);
@@ -24,14 +22,6 @@ public class WayPoint {
 
     public boolean isPhotoTaken() {
         return photoTaken;
-    }
-
-    public Telemetry getTelemetry() {
-        return telemetry;
-    }
-
-    public void setTelemetry(Telemetry telemetry) {
-        this.telemetry = telemetry;
     }
 
     public void setPhotoTaken(boolean photoTaken) {

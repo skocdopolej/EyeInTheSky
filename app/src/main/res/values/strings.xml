@@ -54,4 +54,7 @@
     <string name="overlap">Overlap</string>
     <string name="longitudinal">Longitudinal</string>
     <string name="lateral">Lateral</string>
+    <string name="tolerance">Tolerance</string>
+    <string name="angle">Angle</string>
+    <string name="distance">Distance</string>
 </resources>

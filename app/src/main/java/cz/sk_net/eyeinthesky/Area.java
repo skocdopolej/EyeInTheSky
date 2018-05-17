@@ -1,8 +1,7 @@
 package cz.sk_net.eyeinthesky;
 
-import android.util.Log;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Area implements Serializable {
 
@@ -18,6 +17,10 @@ public class Area implements Serializable {
     private double lngC;
     private double lngAA;
     private double lngBB;
+    private int tileCountX;
+    private int tileCountY;
+    private ArrayList<WayPoint> arrLocation = new ArrayList<>();
+    private String path;
 
     Area(double latA, double latB, double latC, double lngA, double lngB, double lngC) {
         this.latA = latA;
@@ -68,6 +71,30 @@ public class Area implements Serializable {
         return lngBB;
     }
 
+    public int getTileCountX() {
+        return tileCountX;
+    }
+
+    public void setTileCountX(int tileCountX) {
+        this.tileCountX = tileCountX;
+    }
+
+    public int getTileCountY() {
+        return tileCountY;
+    }
+
+    public void setTileCountY(int tileCountY) {
+        this.tileCountY = tileCountY;
+    }
+
+    public ArrayList<WayPoint> getArrLocation() {
+        return arrLocation;
+    }
+
+    public void addWP(float lat, float lng) {
+        arrLocation.add(new WayPoint(lat, lng));
+    }
+
     //https://wiki.openstreetmap.org/wiki/Mercator#Java
     private static double y2lat(double aY) {
         return Math.toDegrees(Math.atan(Math.exp(aY / eartRadius)) * 2 - Math.PI / 2);
@@ -86,6 +113,14 @@ public class Area implements Serializable {
     //https://wiki.openstreetmap.org/wiki/Mercator#Java
     private static double lon2x(double aLong) {
         return Math.toRadians(aLong) * eartRadius;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public void computeArea() {
@@ -124,7 +159,7 @@ public class Area implements Serializable {
         return lat2y(latA) - lat2y(latAA);
     }
 
-    public void getWayPoints(int tileCountX, int tileCountY, float tileSideX, float tileSideY, double deltaX, double deltaY, float angle) {
+    public void getWayPoints(float tileSideX, float tileSideY, double deltaX, double deltaY, float angle) {
 
         double[] coordX = new double[tileCountX];
         double startX = lon2x(lngA) + (deltaX / (2 * tileCountX)) + (Math.sin(angle) * (tileSideY / 2));
@@ -157,7 +192,8 @@ public class Area implements Serializable {
 
             for (int j = 0; j < tileCountY; j++) {
 
-                Log.i("COORDS: ", (y2lat(coordY[i]) + "," + x2lon(coordX[i])));
+                //Log.i("COORDS: ", (y2lat(coordY[i]) + "," + x2lon(coordX[i])));
+                arrLocation.add(new WayPoint(((float) (y2lat(coordY[i]))), (float) (x2lon(coordX[i]))));
             }
         }
     }
